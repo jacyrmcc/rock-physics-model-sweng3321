@@ -1,0 +1,127 @@
+# =====================================================================
+# ML-RPM default configuration  (NFR-7, NFR-10, FR-3)
+# Every physical parameter lists its UNITS and VALID RANGE.
+# Copy this file and edit it; call mlrpm.config.restore_defaults() to
+# write a fresh copy of these defaults.
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# Data loading: CSV header -> internal schema name (FR-1, NFR-6)
+# Keys are header names that may appear in a CSV file (case-insensitive);
+# values are internal names. Headers already equal to an internal name
+# need no entry.
+# Internal schema: DEPTH, VSH, VSAND, VCARB, POR, SW, PD, VP, VS, RHO
+# ---------------------------------------------------------------------
+column_map:
+  Depth_m: DEPTH        # m
+  Vclay: VSH            # fraction, 0-1
+  Vshale: VSH
+  Vsand: VSAND          # fraction, 0-1
+  Vqtz: VSAND
+  Vcarb: VCARB          # fraction, 0-1
+  Vcalc: VCARB
+  PHIT: POR             # fraction, 0-1
+  PHIE: POR
+  SWT: SW               # fraction, 0-1
+  Pdiff_MPa: PD         # MPa, > 0
+  Vp_kms: VP            # km/s
+  Vs_kms: VS            # km/s
+  RHOB: RHO             # g/cc
+
+# ---------------------------------------------------------------------
+# Mineral end-members (FR-3)
+#   K   : bulk modulus,  GPa, > 0
+#   mu  : shear modulus, GPa, >= 0
+#   rho : density,       g/cc, > 0
+# Lithology column -> mineral: VSH -> clay, VSAND -> quartz, VCARB -> calcite
+# Values: Mavko, Mukerji & Dvorkin, The Rock Physics Handbook.
+# ---------------------------------------------------------------------
+end_members:
+  clay:    {K: 20.9, mu: 6.85, rho: 2.58}
+  quartz:  {K: 36.6, mu: 45.0, rho: 2.65}
+  calcite: {K: 76.8, mu: 32.0, rho: 2.71}
+
+# ---------------------------------------------------------------------
+# Hertz-Mindlin parameters per lithology (FR-3)
+#   C       : coordination number, dimensionless, typical 4-12
+#   gamma   : no-slip (friction) fraction, 0-1 (1 = full friction)
+#   phi_c   : critical porosity, fraction, 0.3-0.7
+# ---------------------------------------------------------------------
+hm_params:
+  VSH:   {C: 8.0, gamma: 0.5, phi_c: 0.60}
+  VSAND: {C: 9.0, gamma: 1.0, phi_c: 0.40}
+  VCARB: {C: 9.0, gamma: 1.0, phi_c: 0.40}
+
+# Interpolation bound between Hertz-Mindlin point and mineral point:
+#   lower = "soft sand" / modified lower Hashin-Shtrikman bound
+#   upper = "stiff sand" / modified upper Hashin-Shtrikman bound
+frame_bound: lower
+
+# ---------------------------------------------------------------------
+# Pore fluid (Batzle & Wang, 1992) (FR-3)
+#   salinity          : NaCl weight fraction, 0-0.3  (0.08 = 80,000 ppm)
+#   temperature_c     : deg C, 0-250
+#   pore_pressure_mpa : MPa, > 0. If null, the PD curve is used as the
+#                       fluid pressure (simplification noted in Design 2.4.3)
+#   hydrocarbon       : "gas" or "oil"
+#   gas_gravity       : dimensionless (air = 1), 0.56-1.8
+#   api               : oil API gravity, degrees, 5-60
+# ---------------------------------------------------------------------
+fluid_params:
+  salinity: 0.08
+  temperature_c: 80.0
+  pore_pressure_mpa: 30.0
+  hydrocarbon: gas
+  gas_gravity: 0.65
+  api: 30.0
+
+# ---------------------------------------------------------------------
+# Features used by every ML model (same inputs as the RPM so the
+# comparison is like-for-like).
+# ---------------------------------------------------------------------
+feature_columns: [VSH, VSAND, VCARB, POR, SW, PD]
+
+# Train/test split (FR-6, NFR-11)
+feature_engineer:
+  test_size: 0.2         # fraction, 0-1
+  random_state: 42
+
+# Synthetic well generation (FR-5, NFR-11)
+synthetic:
+  n_samples: 500         # depth samples per synthetic well, >= 10
+  random_state: 7
+  depth_top_m: 3000.0
+  depth_base_m: 4000.0
+  por_range: [0.05, 0.35]   # fraction
+  sw_range: [0.2, 1.0]      # fraction
+  pd_range: [5.0, 40.0]     # MPa
+  smooth_window: 25         # samples, moving-average window
+
+# ---------------------------------------------------------------------
+# ML models run by the pipeline and their default hyperparameters (FR-6)
+# ---------------------------------------------------------------------
+model_keys: [svr, rf, mlp]
+
+model_hyperparameters:
+  svr:
+    kernel: rbf
+    C: 10.0              # > 0
+    epsilon: 0.01        # >= 0, km/s
+    gamma: scale
+  rf:
+    n_estimators: 200    # >= 1
+    max_depth: null      # null or >= 1
+    min_samples_leaf: 2  # >= 1
+    random_state: 42
+  mlp:
+    hidden_layer_sizes: [64, 64]
+    activation: relu
+    learning_rate_init: 0.001   # > 0
+    max_iter: 2000
+    early_stopping: true
+    random_state: 42
+
+# Plotting (UIR-3, UIR-4)
+plotting:
+  colorblind: false
+  figsize: [12, 8]
