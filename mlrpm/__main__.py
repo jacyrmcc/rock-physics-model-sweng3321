@@ -95,11 +95,11 @@ def main(argv=None) -> int:
     try:
         cfg = load_config(a.config)
         if a.cmd == "list":
-            print("\n".join(WellLogRepository(a.data_dir, cfg["column_map"]).available_wells()))
+            print("\n".join(WellLogRepository(a.data_dir, cfg["column_map"], cfg.get("npy_column_order")).available_wells()))
         elif a.cmd == "defaults":
             print(f"Wrote {restore_defaults(a.dest)}")
         elif a.cmd == "forward":
-            well = WellLogRepository(a.data_dir, cfg["column_map"]).load(a.well)
+            well = WellLogRepository(a.data_dir, cfg["column_map"], cfg.get("npy_column_order")).load(a.well)
             pred = ForwardModel.from_config(cfg).predict(well, a.target)
             out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
             ax = LogPlotter(colorblind=cfg["plotting"]["colorblind"]).plot_depth_track(

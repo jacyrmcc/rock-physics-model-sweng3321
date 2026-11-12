@@ -39,7 +39,7 @@ class RockPhysicsPipeline:
         cfg = cfg or load_config()
         fm = ForwardModel.from_config(cfg)
         return cls(
-            repository=WellLogRepository(data_dir, cfg.get("column_map")),
+            repository=WellLogRepository(data_dir, cfg.get("column_map"), cfg.get("npy_column_order")),
             feature_engineer=FeatureEngineer(**cfg.get("feature_engineer", {})),
             evaluator=ModelEvaluator(),
             forward_model=fm,

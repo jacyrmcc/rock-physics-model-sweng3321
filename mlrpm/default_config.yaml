@@ -28,6 +28,10 @@ column_map:
   Vs_kms: VS            # km/s
   RHOB: RHO             # g/cc
 
+# Column order for .npy well files (2-D float array, one row per depth
+# sample). Must list all 10 schema names, in the order the array stores them.
+npy_column_order: [DEPTH, VSH, VSAND, VCARB, POR, SW, PD, VP, VS, RHO]
+
 # ---------------------------------------------------------------------
 # Mineral end-members (FR-3)
 #   K   : bulk modulus,  GPa, > 0
