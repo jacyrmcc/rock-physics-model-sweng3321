@@ -1,3 +1,6 @@
+# Artifact: synthetic.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """SyntheticWellGenerator (Design 2.4.6-2.4.7).
 
 >>> NOTEBOOK HOOK: replace ``_sample_curves`` with the curve-sampling logic
