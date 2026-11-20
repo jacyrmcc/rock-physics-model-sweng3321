@@ -1,3 +1,6 @@
+# Artifact: predictors.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """Prediction classes (Design 1.2.3, 2.3).
 
 Adding an algorithm (NFR-9): subclass VelocityPredictor, implement
