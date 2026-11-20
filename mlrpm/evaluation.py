@@ -1,3 +1,6 @@
+# Artifact: evaluation.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """ModelEvaluator (Design 2.5)."""
 from __future__ import annotations
 
