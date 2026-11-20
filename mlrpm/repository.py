@@ -1,3 +1,6 @@
+# Artifact: repository.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """WellLogRepository (Design 2.1): CSV -> WellLogDataset."""
 from __future__ import annotations
 
