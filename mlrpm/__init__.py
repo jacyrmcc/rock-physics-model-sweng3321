@@ -1,3 +1,6 @@
+# Artifact: __init__.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """ML-RPM: Rock-Physics Machine-Learning Prediction System (proof of concept).
 
 Quick start::
