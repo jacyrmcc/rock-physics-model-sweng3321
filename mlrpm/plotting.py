@@ -1,3 +1,6 @@
+# Artifact: plotting.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """Boundary classes (Design 2.7): LogPlotter, ResultsVisualizer."""
 from __future__ import annotations
 
