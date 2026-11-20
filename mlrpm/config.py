@@ -1,3 +1,6 @@
+# Artifact: config.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """Configuration file handling (NFR-10).
 
 All physical constants and default parameters live in ``default_config.yaml``.
