@@ -1,3 +1,6 @@
+# Artifact: entities.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """Entity classes (Design 1.2.1): WellLogDataset, FeatureSet,
 EvaluationResult, EvaluationReport, PipelineResult."""
 from __future__ import annotations
