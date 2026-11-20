@@ -1,3 +1,6 @@
+# Artifact: features.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """FeatureEngineer (Design 2.2): leave-one-well-out feature building."""
 from __future__ import annotations
 
