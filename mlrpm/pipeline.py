@@ -1,3 +1,6 @@
+# Artifact: pipeline.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """RockPhysicsPipeline (Design 2.6): the main principle of the Design.
 
 Every real well takes one turn as the blind well. For each turn the
