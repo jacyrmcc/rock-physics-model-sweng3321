@@ -1,3 +1,6 @@
+# Artifact: forward_model.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """ForwardModel (Design 2.4): theoretical rock-physics model (the "RPM").
 
 Workflow (Design 2.4.1):
