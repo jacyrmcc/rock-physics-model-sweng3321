@@ -81,13 +81,13 @@ def main(argv=None) -> int:
     s.add_argument("--target", default="VP", choices=["VP", "VS"])
     s.add_argument("--out", default="results")
 
-    s = sub.add_parser("run", help="full blind-well evaluation pipeline (UC-11)")
+    s = sub.add_parser("run", help="full blind-well evaluation pipeline (UC-9)")
     s.add_argument("--data-dir", required=True)
     s.add_argument("--wells", nargs="*", help="default: all CSV wells in data dir")
     s.add_argument("--target", default="VP", choices=["VP", "VS"])
     s.add_argument("--n-synthetic", type=int, default=0)
     s.add_argument("--out", default="results")
-    s.add_argument("--colorblind", action="store_true", help="UC-9")
+    s.add_argument("--colorblind", action="store_true", help="UC-8")
 
     s = sub.add_parser("defaults", help="write a fresh copy of the default config (FR-3)")
     s.add_argument("dest")
