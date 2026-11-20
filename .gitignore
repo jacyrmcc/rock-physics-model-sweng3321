@@ -1,0 +1,9 @@
+# Python cache and test files
+__pycache__/
+*.pyc
+.pytest_cache/
+# Jupyter autosaves
+.ipynb_checkpoints/
+# Local virtual environments
+venv/
+.venv/
