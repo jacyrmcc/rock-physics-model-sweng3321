@@ -1,3 +1,6 @@
+# Artifact: __main__.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """Command-line application shell.
 
     python -m mlrpm list     --data-dir data
