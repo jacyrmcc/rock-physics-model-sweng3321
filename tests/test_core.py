@@ -1,3 +1,6 @@
+# Artifact: test_core.py
+# Author: Obed Plasencia
+# Date coded: November 12, 2026
 """Smoke / contract tests mapped to the requirements. Run: pytest -q"""
 import numpy as np
 import pytest
